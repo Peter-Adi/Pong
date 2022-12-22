@@ -47,12 +47,14 @@ function moveBall(){
 
     if (ballPosH >= fieldExtentH - ballExtent){ 
         velocityH = slope[0] * speed * -1
+        hitRight()
     } else if(ballPosH <= leftBorderMargin - ballLeftExtent){
         velocityH = slope[0] * speed * -1
+        hitLeft()        
     } else{
         velocityH = slope[0] * speed
     }
-    
+
     if (ballPosV >= fieldExtentV - ballExtent){ 
         velocityV = slope[1] * speed * -1
     } else if(ballPosV <= leftBorderMargin - ballLeftExtent){
@@ -71,5 +73,17 @@ function moveBall(){
     theBall.style.top = ballPosV + 'px'
     requestAnimationFrame(moveBall)
 }
+
+var playerLeftScore = 0
+var playerRightScore = 0
+
+function hitRight() {
+    console.log("PL " + ++playerLeftScore)
+}
+
+function hitLeft() {
+    console.log("PR " + ++playerRightScore)
+}
+
 
 moveBall()
