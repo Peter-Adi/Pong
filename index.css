@@ -1,0 +1,43 @@
+#gameContainer{
+    position: relative;
+    margin: 0px;
+    border-style: solid;
+    border-color: green;
+}
+
+#leftPaddle{
+    --paddleOffset: 10vh;
+    position: absolute;
+    left: 15px;
+    top: calc(50vh - var(--paddleOffset));
+    height: calc(var(--paddleOffset) * 2);
+    width: 15px;
+    background-color: crimson;
+}
+
+#rightPaddle{
+    --paddleOffset: 10vh;
+    position: absolute;
+    right: 15px;
+    top: calc(50vh - var(--paddleOffset));
+    height: calc(var(--paddleOffset) * 2);
+    width: 15px;
+    background-color: crimson;
+}
+
+#ball{
+    --ballOffset: 3vh;
+    position: absolute;
+    left: calc(50vw - var(--ballOffset));
+    top: calc(50vh - var(--ballOffset));
+    height: calc(var(--ballOffset) * 2);
+    width: calc(var(--ballOffset) * 2);
+    border-radius: var(--ballOffset);
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    margin: 0px;
+}
