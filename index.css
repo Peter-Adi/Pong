@@ -38,6 +38,22 @@
     padding: 0;
 }
 
+#scoreboxLeft{
+    margin: auto;
+    text-align: center;
+    color: black;
+    padding: 10px;
+    position: absolute;
+    left: calc(50vw - 10vw);
+    top: calc(2vh + 6px);
+    width: calc(5vw + 6px);
+    height: calc(5vh + 6px);
+    
+    border-radius: 6px;
+    background-color: cyan;
+    border: 2px solid gray;
+}
+
 body{
     margin: 0px;
 }
