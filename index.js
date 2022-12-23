@@ -33,7 +33,7 @@ leftBorderMargin = buildPlayingField()
 
 window.addEventListener('resize', rebiuldPlayingHeight)
 const slope = [-2,2]
-const speed = 2
+const speed = 1
 
 var animation = false
 
@@ -118,12 +118,29 @@ function hitRightPaddle() {
 }
 
 document.addEventListener("keydown", (e) => {
-    e.keyCode
+    const leftP = document.getElementById("leftPaddle")
+    const rightP = document.getElementById("rightPaddle")
+    const fieldRect = document.getElementById("gameContainer").getBoundingClientRect()
     if (e.keyCode == 32 && animation) {
         pauseGame()
-        return
-    }
+    } 
+    else if (e.keyCode == 32 && !animation) {
     startGame()
+    }
+    if (e.keyCode == 87 && animation && leftP.getBoundingClientRect().top > 10) {
+        leftP.style.top = leftP.getBoundingClientRect().top - 20 + "px"
+    }
+    if (e.keyCode == 83 && animation && leftP.getBoundingClientRect().bottom < fieldRect.bottom - 10) {
+        leftP.style.top = leftP.getBoundingClientRect().top + 20   + "px"
+        console.log(e.keyCode)
+    }
+    if (e.keyCode == 38 && animation && rightP.getBoundingClientRect().top > 10) {
+        rightP.style.top = rightP.getBoundingClientRect().top - 20 + "px"
+    }
+    if (e.keyCode == 40 && animation && rightP.getBoundingClientRect().bottom < fieldRect.bottom - 10) {
+        rightP.style.top = rightP.getBoundingClientRect().top + 20 + "px"
+        console.log(e.keyCode)
+    }
 });
 
 function startGame() {
@@ -134,3 +151,9 @@ function pauseGame() {
     cancelAnimationFrame(animation)
     animation = false
 }
+
+//to do:    adjust paddle speed/increment.
+//          stop before going past gameContainer borders
+//          prevent default (smooth out paddle motion)
+//          reset game/scoreboard
+//          popup pause menu
