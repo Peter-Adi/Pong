@@ -32,8 +32,11 @@ function rebiuldPlayingHeight(event){
 leftBorderMargin = buildPlayingField()
 
 window.addEventListener('resize', rebiuldPlayingHeight)
-const slope = [2,2]
+const slope = [-2,2]
 const speed = 2
+
+var animation = false
+
 function moveBall(){
     const theBall = document.getElementById('ball')
     let velocityH
@@ -63,27 +66,71 @@ function moveBall(){
         velocityV = slope[1] * speed
     }
 
+    const leftPaddleRect = hitLeftPaddle()
+
+    if (ballPosH <= leftPaddleRect.right && ballPosV >= leftPaddleRect.top - (ballExtent/2) && ballPosV <= leftPaddleRect.bottom - (ballExtent/2)) {
+        if (slope[0] < 0) {
+        velocityH = slope[0] * speed * -1
+        }
+    }
+
+    const rightPaddleRect = hitRightPaddle()
+
+    if ((ballPosH + ballExtent) >= rightPaddleRect.left && ballPosV >= rightPaddleRect.top - (ballExtent/2) && ballPosV <= rightPaddleRect.bottom - (ballExtent/2)) {
+        if (slope[0] > 0) {
+        velocityH = slope[0] * speed * -1
+        }
+    }
+
     slope[0] = velocityH / speed
     slope[1] = velocityV / speed
+
     ballPosH += velocityH
     ballPosV += velocityV
-    //console.log(fieldExtent)
-    //console.log(ballPosV)
+    
     theBall.style.left = ballPosH + 'px'
     theBall.style.top = ballPosV + 'px'
-    requestAnimationFrame(moveBall)
+    
+    animation = requestAnimationFrame(moveBall)
 }
 
 var playerLeftScore = 0
 var playerRightScore = 0
 
 function hitRight() {
-    console.log("PL " + ++playerLeftScore)
+    document.getElementById("scoreboxLeft").innerText = ++playerLeftScore
 }
 
 function hitLeft() {
-    console.log("PR " + ++playerRightScore)
+    document.getElementById("scoreboxRight").innerText = ++playerRightScore
 }
 
+function hitLeftPaddle() {
+    let elem = document.getElementById("leftPaddle");
+    let rect = elem.getBoundingClientRect();
+    return rect
+}
 
-moveBall()
+function hitRightPaddle() {
+    let elem = document.getElementById("rightPaddle");
+    let rect = elem.getBoundingClientRect();
+    return rect
+}
+
+document.addEventListener("keydown", (e) => {
+    e.keyCode
+    if (e.keyCode == 32 && animation) {
+        pauseGame()
+        return
+    }
+    startGame()
+});
+
+function startGame() {
+    moveBall()
+}
+
+function pauseGame() {
+    cancelAnimationFrame(animation)
+    animation = false
+}
